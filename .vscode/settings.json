@@ -5,9 +5,15 @@
         "boxplot",
         "countplot",
         "crosstab",
+        "dataframe",
         "dtype",
+        "gini",
         "histplot",
+        "iloc",
+        "importances",
         "isna",
+        "levelname",
+        "liblinear",
         "quantile"
     ]
 }

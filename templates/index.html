@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <title> Credit Card Customer Default Predictor </title>
+
+  <style>
+    body{
+      overflow-x:hidden ;
+      overflow-y: hidden  ;
+      height:100vh;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      
+  }
+  
+  
+  .content{
+      margin: 0;
+      padding: 0;
+      width: 100vw; /* Set t  he width to 100% of the viewport width */
+      height: 100vh; /* Set the height to 100% of the viewport height */
+      background-color:black;
+      background-image: url('https://images.unsplash.com/photo-1571715268998-d6e79bed5fc9?q=80&w=1772&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      background-position:center;
+      background-size:cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    .content1{
+      padding-top:50px;
+      padding-left: 20%;
+      padding-right: 10%;
+      height: 100vh;
+    }
+          
+          </style>
+</head>
+
+<body>
+  <div class="content">
+        <div class="content1">
+
+          
+     <!-- Inputs to our model-->
+  <form action="{{ url_for('predict')}} " method="post">
+            
+        
+    <table>
+    </tr>
+    <td><label for="SEX">Gender:</label>
+    <select name="SEX" id="SEX">
+    <option value="male">male</option>
+    <option value="female">female</option>
+    
+  </select><td>
+          
+          
+  
+          
+  <td><label for="AGE"> <b>Age :</b> </label>
+  <input type = "number"  id = "AGE" name = "AGE" placeholder = "YEARS" required = "required" /><td>
+  
+  
+ 
+  <td><label for="MARRIAGE">Marital Status:</label>
+    <select name="MARRIAGE" id="MARRIAGE">
+    <option value="single">single</option>
+    <option value="married">married</option>
+    <option value="others">others</option>
+    
+    
+  </select><td>
+   
+  <td><label for="EDUCATION">Education Level:</label>
+    <select name="EDUCATION" id="EDUCATION">
+    <option value="high school">high school</option>
+    <option value="graduate school">graduate school</option>
+    <option value="university">university</option>
+    <option value="others">others</option><td>
+    
+    
+  </select></tr>
+     <table>      
+  <br><br>
+  
+  <label for="LIMIT_BAL"> <b>Limit Balance :</b> </label>
+  <input type = "number"  id = "LIMIT_BAL" name = "LIMIT_BAL" placeholder = "NT DOLLARS" required = "required" />
+  <br><br><br>
+  
+          Repayment Status
+          <br><br>
+  
+          <table>
+  </tr>
+    <td><label for="REPAYMENT_STATUS_APRIL">April:</label>
+    <select name="REPAYMENT_STATUS_APRIL" id="REPAYMENT_STATUS_APRIL">
+    <option value="-2">-2</option>
+    <option value="-1">-1</option>
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option></td>
+    <td><label for="REPAYMENT_STATUS_MAY">May:</label>
+    <select name="REPAYMENT_STATUS_MAY" id="REPAYMENT_STATUS_MAY">
+    <option value="-2">-2</option>
+    <option value="-1">-1</option>
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option></td>
+    <td><label for="REPAYMENT_STATUS_JUNE">June:</label>
+    <select name="REPAYMENT_STATUS_JUNE" id="REPAYMENT_STATUS_JUNE">
+    <option value="-2">-2</option>
+    <option value="-1">-1</option>
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option></td>
+  </tr>
+          
+  </tr>
+    
+  
+    <td><label for="REPAYMENT_STATUS_JULY">July :</label>
+    <select name="REPAYMENT_STATUS_JULY" id="REPAYMENT_STATUS_JULY">
+    <option value="-2">-2</option>
+    <option value="-1">-1</option>
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option></td>
+    
+  
+    <td><label for="REPAYMENT_STATUS_AUGUST">Aug   :</label>
+    <select name="REPAYMENT_STATUS_AUGUST" id="REPAYMENT_STATUS_AUGUST">
+    <option value="-2">-2</option>
+    <option value="-1">-1</option>
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option></td>
+    <td><label for="REPAYMENT_STATUS_SEPT">Sept:</label>
+    <select name="REPAYMENT_STATUS_SEPT" id="REPAYMENT_STATUS_SEPT">
+    <option value="-2">-2</option>
+    <option value="-1">-1</option>
+    <option value="0">0</option>
+    <option value="1">1</option> 
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    </td>
+  </tr>
+</table>
+
+<br><br>
+
+<table>
+<tr>
+  <td><label for="BILL_AMT_APRIL"> <b>Bill Amount For April :</b> </label>
+  <input type = "number" step = "0.01"  id = "BILL_AMT_APRIL" name = "BILL_AMT_APRIL" placeholder = "NT DOLLARS" required = "required" /></td>
+  <td>  <label for="BILL_AMT_MAY"> <b>Bill Amount For May   :</b> </label>
+  <input type = "number" step = "0.01" id = "BILL_AMT_MAY" name = "BILL_AMT_MAY" placeholder = "NT DOLLARS" required = "required" /></td>
+  <td><label for="BILL_AMT_JUNE"> <b>Bill Amount For June  :</b> </label>
+  <input type = "number" step = "0.01" id = "BILL_AMT_JUNE" name = "BILL_AMT_JUNE" placeholder = "NT DOLLARS" required = "required" /></td>
+</tr>
+<tr>
+  <td><label for="BILL_AMT_JULY"> <b>Bill Amount For July  :</b> </label>
+  <input type = "number" step = "0.01" id = "BILL_AMT_JULY" name = "BILL_AMT_JULY" placeholder = "NT DOLLARS" required = "required" /></td>
+  <td><label for="BILL_AMT_AUGUST"> <b>Bill Amount For Aug   :</b> </label>
+  <input type = "number" step = "0.01" id = "BILL_AMT_AUGUST" name = "BILL_AMT_AUGUST" placeholder = "NT DOLLARS" required = "required" /></td>
+  <td><label for="BILL_AMT_SEPT"> <b>Bill Amount For Sept  :</b> </label>
+  <input type = "number" step = "0.01" id = "BILL_AMT_SEPT" name = "BILL_AMT_SEPT" placeholder = "NT DOLLARS" required = "required" /></td>
+</tr>
+</table>
+
+          <br><br>
+
+
+
+<table>
+<tr>
+  <td><label for="PAY_AMT_APRIL"> <b>Pay Amount For April  :</b> </label>
+  <input type = "number" step = "0.01"  id = "PAY_AMT_APRIL" name = "PAY_AMT_APRIL" placeholder = "NT DOLLARS" required = "required" /></td>
+  <td><label for="PAY_AMT_MAY"> <b>Pay Amount For May    :</b> </label>
+  <input type = "number" step = "0.01"  id = "PAY_AMT_MAY" name = "PAY_AMT_MAY" placeholder = "NT DOLLARS" required = "required" /></td>
+  <td><label for="PAY_AMT_JUNE"> <b>Pay Amount For June   :</b> </label>
+  <input type = "number" step = "0.01"  id = "PAY_AMT_JUNE" name = "PAY_AMT_JUNE" placeholder = "NT DOLLARS" required = "required" /></td>
+</tr>
+<tr>
+  <td><label for="PAY_AMT_JULY"> <b>Pay Amount For July   :</b> </label>
+  <input type = "number" step = "0.01"  id = "PAY_AMT_JULY" name = "PAY_AMT_JULY" placeholder = "NT DOLLARS" required = "required" /></td>
+  <td><label for="PAY_AMT_AUGUST"> <b>Pay Amount For Aug    :</b> </label>
+  <input type = "number" step = "0.01" id = "PAY_AMT_AUGUST" name = "PAY_AMT_AUGUST" placeholder = "NT DOLLARS" required = "required" /></td>
+  <td><label for="PAY_AMT_SEPT"> <b>Pay Amount For Sept   :</b> </label>
+  <input type = "number" step = "0.01"  id = "PAY_AMT_SEPT" name = "PAY_AMT_SEPT" placeholder = "NT DOLLARS" required = "required" /></td>
+</tr>
+</table>
+
+<br><br>
+
+<button type="submit" class="btn btn-primary btn-block btn-large" style="padding: 10px 15px" >Predict</button>
+  {{ prediction_text }}
+  <br><br>
+
+</form> <br><br><br><br><br>
+        </div>
+  </div>
+   
+</body>
+</html>
