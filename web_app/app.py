@@ -1,13 +1,10 @@
+from flask import Flask,render_template,url_for,redirect,request
+from prediction_pipeline import PredictionPipeline,CustomData
+import time
+
+app = Flask(__name__)
 
 
-#import libraries
-from src.pipelines.prediction_pipeline import PredictionPipeline,CustomData
-
-from flask import Flask,render_template,url_for,redirect,request    
-
-application = Flask(__name__)
-
-app=application
 @app.route('/')
 def load_home():
     return render_template('index.html',prediction_text="")
@@ -72,13 +69,18 @@ def predict():
         df = obj.get_data_as_dataframe()
         
         #get prediction
+        start_time=time.time()
         prediction_agent=PredictionPipeline()
-        prediction=prediction_agent.predict(df)
-        prediction=prediction[0]
+        prediction,probability=prediction_agent.predict(df)
+        prediction,probability=prediction[0],probability[0][1]
+        end_time=time.time()
+        
         if prediction==0: msg="Will not Default"
         elif prediction==1: msg="Will Default"
         else: msg="Error in Prediction"
-        return render_template('index.html',prediction_text=msg)
+        
+        response_time="{:.2f}".format((end_time-start_time)*10**3)
+        return render_template('index.html',prediction_text=msg,probability=probability,response_time=response_time)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0",port=5000)
+    app.run(host="0.0.0.0",debug=True,port=5000)
