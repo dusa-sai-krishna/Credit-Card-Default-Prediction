@@ -1,3 +1,5 @@
 fraudDetection_env/
 artifacts/
 logs/
+.ebextensioins/
+app.py
